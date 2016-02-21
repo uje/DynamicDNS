@@ -1,0 +1,1 @@
+C:\TFS\Tools\DynamicDNS\DNSPod.Api\obj\Debug\DNSPod.Api.csprojResolveAssemblyReference.cache

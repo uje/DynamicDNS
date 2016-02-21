@@ -1,0 +1,5 @@
+C:\TFS\Tools\DynamicDNS\DynamicDNS\obj\Debug\DynamicDNS.csprojResolveAssemblyReference.cache
+C:\TFS\Tools\DynamicDNS\DynamicDNS\obj\Debug\DynamicDNS.Controls.TextBoxEdit.resources
+C:\TFS\Tools\DynamicDNS\DynamicDNS\obj\Debug\DynamicDNS.frmSettings.resources
+C:\TFS\Tools\DynamicDNS\DynamicDNS\obj\Debug\DynamicDNS.Properties.Resources.resources
+C:\TFS\Tools\DynamicDNS\DynamicDNS\obj\Debug\DynamicDNS.csproj.GenerateResource.Cache

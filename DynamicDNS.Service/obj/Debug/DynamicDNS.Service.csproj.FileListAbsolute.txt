@@ -1,0 +1,4 @@
+C:\TFS\Tools\DynamicDNS\DynamicDNS.Service\obj\Debug\DynamicDNS.Service.csprojResolveAssemblyReference.cache
+C:\TFS\Tools\DynamicDNS\DynamicDNS.Service\obj\Debug\DynamicDNS.Service.DynamicService.resources
+C:\TFS\Tools\DynamicDNS\DynamicDNS.Service\obj\Debug\DynamicDNS.Service.ProjectInstaller.resources
+C:\TFS\Tools\DynamicDNS\DynamicDNS.Service\obj\Debug\DynamicDNS.Service.csproj.GenerateResource.Cache

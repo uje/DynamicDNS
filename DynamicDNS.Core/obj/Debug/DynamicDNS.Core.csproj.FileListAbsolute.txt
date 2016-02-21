@@ -1,0 +1,1 @@
+C:\TFS\Tools\DynamicDNS\DynamicDNS.Core\obj\Debug\DynamicDNS.Core.csprojResolveAssemblyReference.cache
