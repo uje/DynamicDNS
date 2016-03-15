@@ -1,4 +1,4 @@
-﻿using DNSPod.Api;
+using DNSPod.Api;
 using DNSPod.Api.Content;
 using DNSPod.Api.Request;
 using DynamicDNS.Api.Core;
@@ -66,6 +66,7 @@ namespace DynamicDNS.Core {
                 request.Password = password;
                 request.DomainId = domainId;
                 var response = request.Execute();
+                Logger.Write("API Complete:RecordsRequest");
 
                 if (response.Records == null)
                     throw new DNSPodException(10, "没有任何记录");
@@ -76,7 +77,6 @@ namespace DynamicDNS.Core {
                 if (response.Records.Count(t => subDomain.Equals(t.Name, StringComparison.OrdinalIgnoreCase)) == 0)
                     throw new DNSPodException(22, "主机头不存在");
 
-                Logger.Write("API Complete:RecordsRequest");
                 return response.Records.Single(t => subDomain.Equals(t.Name, StringComparison.OrdinalIgnoreCase));
             }, string.Format("record_{0}_{1}", domainId, subDomain), TimeSpan.FromDays(1));
 
