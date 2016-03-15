@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration.Install;
+using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
@@ -24,6 +25,8 @@ namespace DynamicDNS.Core {
         public string Path { get; set; }
 
         public ServiceManager() {}
+
+
 
         public ServiceManager(string path) : this(System.IO.Path.GetFileName(path), path) { }
 
@@ -109,6 +112,18 @@ namespace DynamicDNS.Core {
 
             using (var sc = new ServiceController(Name)) {
                 return sc.CanStop;
+            }
+        }
+
+        public ServiceControllerStatus GetStatus() {
+            if (!Exist())
+                return ServiceControllerStatus.Stopped;
+
+            if (Process.GetProcesses().Count(t => "DynamicDNS.Service".Equals(t.ProcessName, StringComparison.CurrentCultureIgnoreCase)) > 0)
+                return ServiceControllerStatus.Running;
+
+            using (var sc = new ServiceController(Name)) {
+                return sc.Status;
             }
         }
     }
