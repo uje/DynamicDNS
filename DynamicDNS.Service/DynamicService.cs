@@ -1,4 +1,4 @@
-﻿using DNSPod.Api;
+using DNSPod.Api;
 using DNSPod.Api.Content;
 using DynamicDNS.Core;
 using System;
@@ -112,7 +112,9 @@ namespace DynamicDNS.Service {
 
             if (!isLock) {
                 isLock = true;
-                Logger.Write("IP比对中...");
+                Logger.Write("获取本地IP");
+                var ip = DNSHelper.GetLocalIP();
+                Logger.Write("本地IP为：{0}，IP比对中...", ip);
 
                 try {
                     Domain domain = client.GetDomain(domainName);
@@ -125,20 +127,21 @@ namespace DynamicDNS.Service {
 
                         // 如果记录不存在则创建一个
                         if (ex.Code == 22) {
-                            record = client.CreateRecord(domain.Id.ToString(), subDomain, DNSHelper.GetLocalIP());
-                            client.Clear();
                             Logger.Write("主机头不存在，创建记录");
+                            record = client.CreateRecord(domain.Id.ToString(), subDomain, ip);
+                            client.Clear();
+                            Logger.Write("已创建记录，ID为：{0}", record.Id);
                         }
                         else
                             throw ex;
                     }
 
                     // 如果本地IP与服务器不一样则更新
-                    var ip = DNSHelper.GetLocalIP();
                     if (ip != record.Value) {
+                        Logger.Write("IP变动，刷新DNS。IP地址为：{0}", ip);
                         client.DDNS(domain.Id.ToString(), subDomain, record.Id);
                         client.Clear();
-                        Logger.Write("IP变动，刷新DNS。IP地址为：{0}", ip);
+                        Logger.Write("已更换IP：{0}", ip);
                     }
                     else {
                         Logger.Write("本地IP与服务器IP一致，无需更新");
