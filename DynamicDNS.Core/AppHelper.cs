@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -43,12 +43,13 @@ namespace DynamicDNS.Core {
         /// <param name="ass">键与值</param>
         public static void WriteSetting(string configPath, params KeyValuePair<string, object>[] parms) {
             Configuration config;
-            if (string.IsNullOrEmpty(configPath)) {
+
+            if (string.IsNullOrEmpty(configPath))
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            }
-            else {
+
+            else
                 config = ConfigurationManager.OpenExeConfiguration(configPath);
-            }
+
             foreach (var appStringElement in parms) {
                 if (!string.IsNullOrEmpty(appStringElement.Key) &&
                     !string.IsNullOrEmpty(appStringElement.Value.ToString())) {
@@ -69,6 +70,22 @@ namespace DynamicDNS.Core {
         /// <param name="value">值</param>
         public static void WriteSetting(string key, object value) {
             WriteSetting(new KeyValuePair<string, object>(key, value));
+        }
+
+        /// <summary>
+        /// 获取值
+        /// </summary>
+        /// <param name="key">要获取的项的名称</param>
+        /// <param name="configPath">配置文件路径</param>
+        public static string GetSetting(string key, string configPath = null) {
+            Configuration config;
+            if (string.IsNullOrEmpty(configPath))
+                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            else
+                config = ConfigurationManager.OpenExeConfiguration(configPath);
+
+            var setting = config.AppSettings.Settings[key];
+            return (setting == null ? null : setting.Value);
         }
 
 
@@ -107,7 +124,7 @@ namespace DynamicDNS.Core {
             }
 
             p.StartInfo.UseShellExecute = false;
-            
+
             try {
                 p.Start();
             }
@@ -129,8 +146,6 @@ namespace DynamicDNS.Core {
                 System.Environment.Exit(0);
             }
         }
-
-
 
         public static void SetTimeout(Action execution, int interval) {
             var timer = new System.Timers.Timer();
