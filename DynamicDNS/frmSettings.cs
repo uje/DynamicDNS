@@ -1,4 +1,4 @@
-﻿using DNSPod.Api;
+using DNSPod.Api;
 using DNSPod.Api.Content;
 using DNSPod.Api.Request;
 using DynamicDNS.Api.Core;
@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,24 +20,21 @@ namespace DynamicDNS {
         public frmSettings() {
             InitializeComponent();
             serviceManger = new ServiceManager("DynamicDNSService", string.Format("{0}\\DynamicDNS.Service.exe", AppDomain.CurrentDomain.BaseDirectory));
-            var isExist = serviceManger.Exist();
-
-            btnInstall.Enabled = !isExist && HasConfig();
-            btnUninstall.Enabled = isExist;
-            btnRun.Enabled = isExist && !serviceManger.CanStop();
+            ToggleBtns();
         }
 
         #region 属性
         private static DNSPodClient client = null;
         private int updateInterval = 5;
         private ServiceManager serviceManger;
+        private delegate void SetText();
 
         private string Email {
             get {
-                var email = ConfigurationManager.AppSettings["Email"];
+                var email = AppHelper.GetSetting("Email");
 
                 if (!string.IsNullOrWhiteSpace(email))
-                    email = CryptHelper.AESDecrypt(ConfigurationManager.AppSettings["Email"]);
+                    email = CryptHelper.AESDecrypt(email);
 
                 return email;
             }
@@ -45,7 +43,7 @@ namespace DynamicDNS {
 
         private string Password {
             get {
-                var password = ConfigurationManager.AppSettings["Password"];
+                var password = AppHelper.GetSetting("Password");
 
                 if (!string.IsNullOrWhiteSpace(password))
                     password = CryptHelper.AESDecrypt(password);
@@ -57,7 +55,7 @@ namespace DynamicDNS {
 
         private string Domain {
             get {
-                var domain = ConfigurationManager.AppSettings["Domain"];
+                var domain = AppHelper.GetSetting("Domain");
 
                 if (!string.IsNullOrWhiteSpace(domain))
                     domain = CryptHelper.AESDecrypt(domain);
@@ -69,7 +67,7 @@ namespace DynamicDNS {
 
         private string SubDomain {
             get {
-                var subDomain = ConfigurationManager.AppSettings["SubDomain"];
+                var subDomain = AppHelper.GetSetting("SubDomain");
 
                 if (!string.IsNullOrWhiteSpace(subDomain))
                     subDomain = CryptHelper.AESDecrypt(subDomain);
@@ -81,8 +79,10 @@ namespace DynamicDNS {
 
         private int UpdateInterval {
             get {
-                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["UpdateInterval"]))
-                    updateInterval = int.Parse(ConfigurationManager.AppSettings["UpdateInterval"]);
+                var _value = AppHelper.GetSetting("UpdateInterval");
+
+                if (!string.IsNullOrWhiteSpace(_value))
+                    updateInterval = int.Parse(_value);
 
                 return updateInterval;
             }
@@ -92,6 +92,23 @@ namespace DynamicDNS {
         }
 
         #endregion
+
+        private void ToggleBtns() {
+            var isExist = serviceManger.Exist();
+
+            btnInstall.Enabled = !isExist && HasConfig();
+            btnUninstall.Enabled = isExist;
+            btnRun.Enabled = false;
+            btnRun.Text = "请稍候...";
+
+            AppHelper.SetTimeout(() => {
+                btnRun.Invoke(new SetText(() => {
+                    btnRun.Enabled = isExist;
+                    btnRun.Text = (serviceManger.GetStatus() == ServiceControllerStatus.Running ? "停止" : "启动");
+                }), null);
+            }, 1000);
+        }
+
 
         private void Form1_Load(object sender, EventArgs e) {
 
@@ -136,8 +153,8 @@ namespace DynamicDNS {
                 UpdateInterval = updateInterval;
             }
 
-            btnInstall.Enabled = true;
             AppHelper.Alert("保存成功！");
+            ToggleBtns();
         }
 
         private bool DDNS(DNSPodClient client, string domainName, string subDomain) {
@@ -197,14 +214,27 @@ namespace DynamicDNS {
         }
 
         private void btnRun_Click(object sender, EventArgs e) {
-            btnRun.Enabled = false;
 
-            if (HasConfig()) {
-                serviceManger.Start();
+            try {
+                if (btnRun.Text == "启动") {
+
+                    if (serviceManger.Exist())
+                        serviceManger.Start();
+
+                    else
+                        AppHelper.Alert("在您的配置保存之前，我们无法为您启动！");
+
+                }
+                else
+                    serviceManger.Stop();
+
+                ToggleBtns();
             }
-            else {
-                AppHelper.Alert("在您的配置保存之前，我们无法为您启动！");
+            catch (Exception ex) {
+                AppHelper.Alert(ex.Message);
             }
+
+
         }
 
         private void btnInstall_Click(object sender, EventArgs e) {
@@ -214,9 +244,7 @@ namespace DynamicDNS {
             }
 
             serviceManger.Install();
-            btnInstall.Enabled = false;
-            btnUninstall.Enabled = true;
-            btnRun.Enabled = true;
+            ToggleBtns();
         }
 
         private void btnUninstall_Click(object sender, EventArgs e) {
@@ -228,9 +256,7 @@ namespace DynamicDNS {
             }
             catch { }
 
-            btnInstall.Enabled = true;
-            btnUninstall.Enabled = false;
-            btnRun.Enabled = false;
+            ToggleBtns();
         }
 
     }
