@@ -2,6 +2,9 @@
 
 ### 使用说明
 
+##### 运行环境
+.NET Framework 4.0及以上
+
 ##### 下载软件包到本地后解压
 下载地址： [百度网盘](http://pan.baidu.com/s/1i3RMOPB)  [360云盘（提取码：843d）](https://yunpan.cn/cYvrdSmH3cbT9)
 
