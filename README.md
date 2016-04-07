@@ -11,13 +11,13 @@
 下载地址： [百度网盘](http://pan.baidu.com/s/1i3RMOPB)  [360云盘（提取码：843d）](https://yunpan.cn/cYvrdSmH3cbT9)
 
 ##### 打开软件填写配置信息并保存 
-![step-1](http://pic.sueri.cn/di-8KAF.png)
+![step-1](http://ww1.sinaimg.cn/large/6227d444jw1f2o6j6zcdoj20ww0mqdhz.jpg)
 
 ##### 安装服务
-![step-2](http://pic.sueri.cn/di-D8W0.png)
+![step-2](http://ww3.sinaimg.cn/large/6227d444jw1f2o6k8kqihj20wu0mowgr.jpg)
 
 ##### 启动服务
-![step-2](http://pic.sueri.cn/di-FIXJ.png)
+![step-2](http://ww3.sinaimg.cn/large/6227d444jw1f2o6kk0r7aj20wy0mi76b.jpg)
 
 
 ##### OK, 大功告成！
