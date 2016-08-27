@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNSPod.Api", "DNSPod.Api\DNSPod.Api.csproj", "{A0E51D96-45E1-4387-B897-63ADB758763C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicDNS", "DynamicDNS\DynamicDNS.csproj", "{AA482FAB-039A-406A-BCB7-DC50E87EAC49}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicDNS.Core", "DynamicDNS.Core\DynamicDNS.Core.csproj", "{B538BE89-8963-471C-8FC8-7C0264D20F48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicDNS.Service", "DynamicDNS.Service\DynamicDNS.Service.csproj", "{2E5713DC-5642-42E0-88BF-FC124022EF24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicDNS.Settings", "DynamicDNS.Settings\DynamicDNS.Settings.csproj", "{356B34DE-B173-435B-B73F-70D176F87ADD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{A0E51D96-45E1-4387-B897-63ADB758763C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0E51D96-45E1-4387-B897-63ADB758763C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0E51D96-45E1-4387-B897-63ADB758763C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA482FAB-039A-406A-BCB7-DC50E87EAC49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA482FAB-039A-406A-BCB7-DC50E87EAC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA482FAB-039A-406A-BCB7-DC50E87EAC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA482FAB-039A-406A-BCB7-DC50E87EAC49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B538BE89-8963-471C-8FC8-7C0264D20F48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B538BE89-8963-471C-8FC8-7C0264D20F48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B538BE89-8963-471C-8FC8-7C0264D20F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{2E5713DC-5642-42E0-88BF-FC124022EF24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E5713DC-5642-42E0-88BF-FC124022EF24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E5713DC-5642-42E0-88BF-FC124022EF24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{356B34DE-B173-435B-B73F-70D176F87ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{356B34DE-B173-435B-B73F-70D176F87ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{356B34DE-B173-435B-B73F-70D176F87ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{356B34DE-B173-435B-B73F-70D176F87ADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

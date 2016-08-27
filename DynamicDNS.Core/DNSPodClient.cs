@@ -13,8 +13,22 @@ namespace DynamicDNS.Core {
 
         private string email;
         private string password;
+        private string token;
         private static ICacheClient httpCacheClient = HttpcacheClient.GetInstance("DynamicDNS");
 
+        /// <summary>
+        /// 使用token验证
+        /// </summary>
+        public DNSPodClient(string token) {
+            if (string.IsNullOrWhiteSpace(token))
+                throw new ArgumentNullException("token");
+
+            this.token = token;
+        }
+
+        /// <summary>
+        /// 使用帐号密码验证
+        /// </summary>
         public DNSPodClient(string email, string password) {
 
             if (string.IsNullOrWhiteSpace(email))
@@ -38,6 +52,7 @@ namespace DynamicDNS.Core {
                 DomainsRequest request = new DomainsRequest();
                 request.Email = email;
                 request.Password = password;
+                request.Token = token;
                 var response = request.Execute();
 
                 if (response.Domains == null)
@@ -64,6 +79,7 @@ namespace DynamicDNS.Core {
                 RecordsRequest request = new RecordsRequest();
                 request.Email = email;
                 request.Password = password;
+                request.Token = token;
                 request.DomainId = domainId;
                 var response = request.Execute();
                 Logger.Write("API Complete:RecordsRequest");
@@ -100,6 +116,7 @@ namespace DynamicDNS.Core {
                 request.Email = email;
                 request.Password = password;
                 request.DomainId = domainId;
+                request.Token = token;
                 request.SubDomain = subDomain;
                 request.Value = value;
                 request.RecordLine = "默认";
@@ -126,6 +143,7 @@ namespace DynamicDNS.Core {
             DDNSRequest request = new DDNSRequest();
             request.Email = email;
             request.Password = password;
+            request.Token = token;
             request.DomainId = domainId;
             request.SubDomain = subDomain;
             request.RecordId = recordId;

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DynamicDNS.Controls {
+namespace DynamicDNS.Settings.Controls {
 
     /// <summary>
     /// 包含提示文本的文本框

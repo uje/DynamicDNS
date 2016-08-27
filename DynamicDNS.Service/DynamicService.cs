@@ -25,6 +25,8 @@ namespace DynamicDNS.Service {
         private string password;
         private string domain;
         private string subDomain;
+        private string token;
+        private string tokenID;
         private bool isLock = false;
 
         #endregion
@@ -35,26 +37,51 @@ namespace DynamicDNS.Service {
 
             try {
                 var doc = new XmlDocument();
-                doc.Load(string.Format("{0}DynamicDNS.exe.config", AppDomain.CurrentDomain.BaseDirectory));
+                doc.Load(string.Format("{0}DynamicDNS.Settings.exe.config", AppDomain.CurrentDomain.BaseDirectory));
                 var appSettings = doc.GetElementsByTagName("add").OfType<XmlNode>().ToDictionary(t => t.Attributes["key"].Value.ToLower(), (t) => t.Attributes["value"].Value);
 
-                if (appSettings.ContainsKey("email"))
-                    email = CryptHelper.AESDecrypt(appSettings["email"]);
+                if (appSettings.ContainsKey("email")) {
+                    email = appSettings["email"];
 
-                if (appSettings.ContainsKey("password"))
-                    password = CryptHelper.AESDecrypt(appSettings["password"]);
+                    if (!string.IsNullOrWhiteSpace(email)) {
+                        email = CryptHelper.AESDecrypt(email);
+                    }
+                }
 
-                if (appSettings.ContainsKey("domain"))
+                if (appSettings.ContainsKey("password")) {
+                    password = appSettings["password"];
+
+                    if (!string.IsNullOrWhiteSpace(password)) {
+                        password = CryptHelper.AESDecrypt(password);
+                    }
+                }
+
+                if (appSettings.ContainsKey("domain")) {
                     domain = CryptHelper.AESDecrypt(appSettings["domain"]);
+                }
 
-                if (appSettings.ContainsKey("subdomain"))
+                if (appSettings.ContainsKey("subdomain")) {
                     subDomain = CryptHelper.AESDecrypt(appSettings["subdomain"]);
+                }
+                
+                if (appSettings.ContainsKey("token")) {
+                    token = appSettings["token"];
+
+                    if (!string.IsNullOrWhiteSpace(token)) {
+                        token = CryptHelper.AESDecrypt(token);
+                    }
+                }
+
+                if (appSettings.ContainsKey("tokenid")) {
+                    tokenID = appSettings["tokenid"];
+                }
 
                 if (appSettings.ContainsKey("updateinterval")) {
                     var _updateInterval = appSettings["updateinterval"];
                     int.TryParse(_updateInterval, out updateInterval);
                     updateInterval = Math.Max(updateInterval, 5);
                 }
+
             }
             catch (Exception ex) {
                 Logger.Write("配置文件不存在或配置不正确：{0}", ex.Message);
@@ -68,14 +95,9 @@ namespace DynamicDNS.Service {
 
             Logger.Write("服务启动！");
 
-            if (string.IsNullOrWhiteSpace(email)) {
-                Logger.Write("Missing Email");
-                this.Stop();
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(password)) {
-                Logger.Write("Missing Password");
+            if((string.IsNullOrWhiteSpace(token) || string.IsNullOrWhiteSpace(tokenID)) &&
+               (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))) {
+                Logger.Write("至少需要一种验证方式！");
                 this.Stop();
                 return;
             }
@@ -92,7 +114,13 @@ namespace DynamicDNS.Service {
                 return;
             }
 
-            client = new DNSPodClient(email, password);
+            if (!string.IsNullOrWhiteSpace(token) && !string.IsNullOrWhiteSpace(tokenID)) {
+                client = new DNSPodClient(tokenID +"," + token);
+            }
+            else {
+                client = new DNSPodClient(email, password);
+            }
+
             timer.Interval = updateInterval * 60 * 1000;
             timer.Start();
 

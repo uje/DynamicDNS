@@ -1,12 +1,8 @@
 ﻿using DynamicDNS.Core;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DynamicDNS {
+namespace DynamicDNS.Settings {
     static class Program {
         /// <summary>
         /// 应用程序的主入口点。
@@ -17,7 +13,7 @@ namespace DynamicDNS {
             Application.SetCompatibleTextRenderingDefault(false);
 
             AppHelper.KillAppIfIsRun();
-            Application.Run(new frmSettings());
+            Application.Run(new frmMain());
         }
     }
 }

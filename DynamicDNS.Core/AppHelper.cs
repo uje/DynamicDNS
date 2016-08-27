@@ -51,8 +51,7 @@ namespace DynamicDNS.Core {
                 config = ConfigurationManager.OpenExeConfiguration(configPath);
 
             foreach (var appStringElement in parms) {
-                if (!string.IsNullOrEmpty(appStringElement.Key) &&
-                    !string.IsNullOrEmpty(appStringElement.Value.ToString())) {
+                if (!string.IsNullOrEmpty(appStringElement.Key)) {
                     try {
                         config.AppSettings.Settings[appStringElement.Key].Value = appStringElement.Value.ToString();
                     }

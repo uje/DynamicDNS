@@ -20,6 +20,12 @@ namespace DNSPod.Api.Core {
         [Parameter("login_password")]
         public string Password { get; set; }
 
+        /// <summary>
+        /// token验证与帐号密码验证任选其一
+        /// </summary>
+        [Parameter("login_token")]
+        public string Token { get; set; }
+
         [Parameter("format")]
         public string Format {
             get { return "json"; }

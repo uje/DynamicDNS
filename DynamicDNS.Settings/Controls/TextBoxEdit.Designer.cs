@@ -1,4 +1,4 @@
-﻿namespace DynamicDNS.Controls {
+﻿namespace DynamicDNS.Settings.Controls {
     partial class TextBoxEdit {
         /// <summary> 
         /// 必需的设计器变量。
