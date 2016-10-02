@@ -8,7 +8,7 @@
 .NET 4.5下载地址： [在线安装包](http://go.microsoft.com/fwlink/?LinkId=225704) [离线安装包](http://go.microsoft.com/fwlink/?LinkId=225702)
 
 ##### 下载软件包到本地后解压
-下载地址： [百度网盘](http://pan.baidu.com/s/1i3RMOPB)  [360云盘（提取码：843d）](https://yunpan.cn/cYvrdSmH3cbT9)
+下载地址： [Beta版](https://github.com/tzmgl/DynamicDNS/releases)
 
 ##### 打开软件填写配置信息并保存 
 ![step-1](http://ww1.sinaimg.cn/large/6227d444jw1f2o6j6zcdoj20ww0mqdhz.jpg)
