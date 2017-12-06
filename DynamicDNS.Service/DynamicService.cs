@@ -165,7 +165,11 @@ namespace DynamicDNS.Service {
                     }
 
                     // 如果本地IP与服务器不一样则更新
-                    if (ip != record.Value) {
+                    if (ip == string.Empty)
+                    {
+                        Logger.Write("空IP，网络有问题，请检查");
+                    }
+                    else if (ip != record.Value) {
                         Logger.Write("IP变动，刷新DNS。IP地址为：{0}", ip);
                         client.DDNS(domain.Id.ToString(), subDomain, record.Id);
                         client.Clear();
