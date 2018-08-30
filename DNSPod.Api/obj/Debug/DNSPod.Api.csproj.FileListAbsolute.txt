@@ -1,7 +1,0 @@
-C:\TFS\Tools\DynamicDNS\DNSPod.Api\obj\Debug\DNSPod.Api.csprojResolveAssemblyReference.cache
-C:\Users\JM\Documents\GitHub\DynamicDNS\DNSPod.Api\bin\Debug\DNSPod.Api.dll
-C:\Users\JM\Documents\GitHub\DynamicDNS\DNSPod.Api\bin\Debug\DNSPod.Api.pdb
-C:\Users\JM\Documents\GitHub\DynamicDNS\DNSPod.Api\bin\Debug\Newtonsoft.Json.dll
-C:\Users\JM\Documents\GitHub\DynamicDNS\DNSPod.Api\bin\Debug\Newtonsoft.Json.xml
-C:\Users\JM\Documents\GitHub\DynamicDNS\DNSPod.Api\obj\Debug\DNSPod.Api.dll
-C:\Users\JM\Documents\GitHub\DynamicDNS\DNSPod.Api\obj\Debug\DNSPod.Api.pdb
