@@ -14,11 +14,7 @@ namespace DynamicDNS.Core {
     public class DNSHelper  {
 
         private static readonly KeyValuePair<string, string>[] urls = new KeyValuePair<string, string>[] {
-            new KeyValuePair<string, string>("http://ip.qq.com/", @"\d+\.\d+\.\d+\.\d+" ),
-            new KeyValuePair<string, string> ("http://gz.bendibao.com/ip/ip.asp", @"\d+\.\d+\.\d+\.\d+" ),
-            new KeyValuePair<string, string> ("http://www.meibu.com/ip.asp", @"\d+\.\d+\.\d+\.\d+" ),
-            new KeyValuePair<string, string> ("http://sgld.org/ip", @"\d+\.\d+\.\d+\.\d+" ),
-            new KeyValuePair<string, string> ("http://uuuuer.sinaapp.com/ip", ""),
+            new KeyValuePair<string, string> ("http://www.ip.cn", @"\d+\.\d+\.\d+\.\d+" ),
             new KeyValuePair<string, string> ("http://www.wuyuanhe.com/ip", "" )
         };
 
