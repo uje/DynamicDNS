@@ -3,3 +3,4 @@
 *.cache
 *.suo
 *.txt
+/.vs/DynamicDNS/v16/Server/sqlite3

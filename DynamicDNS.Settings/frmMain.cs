@@ -19,29 +19,6 @@ namespace DynamicDNS.Settings {
         private ServiceManager serviceManger;
         private delegate void SetText();
 
-        private string Email {
-            get {
-                var email = AppHelper.GetSetting("Email");
-
-                if (!string.IsNullOrWhiteSpace(email))
-                    email = CryptHelper.AESDecrypt(email);
-
-                return email;
-            }
-            set { AppHelper.WriteSetting("Email", string.IsNullOrWhiteSpace(value) ? value : CryptHelper.AESEncrypt(value)); }
-        }
-
-        private string Password {
-            get {
-                var password = AppHelper.GetSetting("Password");
-
-                if (!string.IsNullOrWhiteSpace(password))
-                    password = CryptHelper.AESDecrypt(password);
-
-                return password;
-            }
-            set { AppHelper.WriteSetting("Password", string.IsNullOrWhiteSpace(value) ? value : CryptHelper.AESEncrypt(value)); }
-        }
 
         private string Token {
             get {
@@ -111,7 +88,7 @@ namespace DynamicDNS.Settings {
             ToggleBtns();
 
             // 更改验证状态
-            ToggleValidateState(!string.IsNullOrWhiteSpace(Token));
+            ToggleValidateState();
 
             // 初始化控件值
             InitValue();
@@ -131,8 +108,6 @@ namespace DynamicDNS.Settings {
         ///  初始化控件值
         /// </summary>
         private void InitValue() {
-            tbeAccount.Text = Email;
-            tbePwd.Text = Password;
             tbeToken.Text = Token;
             tbeTokenID.Text = TokenID;
             tbeDomain.Text = Domain;
@@ -144,23 +119,11 @@ namespace DynamicDNS.Settings {
         /// <summary>
         /// 设置验证状态
         /// </summary>
-        private void ToggleValidateState(bool useToken) {
-            if (useToken) {
-                tbeToken.Visible = true;
-                tbeTokenID.Visible = true;
-                cbUseToken.Checked = true;
-                tbeAccount.Visible = false;
-                tbePwd.Visible = false;
-                cbUseAccount.Checked = false;
-            }
-            else {
-                tbeToken.Visible = false;
-                tbeTokenID.Visible = false;
-                cbUseToken.Checked = false;
-                tbeAccount.Visible = true;
-                tbePwd.Visible = true;
-                cbUseAccount.Checked = true;
-            }
+        private void ToggleValidateState() {
+            tbeToken.Visible = true;
+            tbeTokenID.Visible = true;
+            tbeAccount.Visible = false;
+            tbePwd.Visible = false;
         }
 
         /// <summary>
@@ -187,8 +150,7 @@ namespace DynamicDNS.Settings {
         /// </summary>
         /// <returns></returns>
         private bool HasConfig() {
-            return ((!string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password)) ||
-                (!string.IsNullOrWhiteSpace(Token) && !string.IsNullOrWhiteSpace(TokenID)))
+            return (!string.IsNullOrWhiteSpace(Token) && !string.IsNullOrWhiteSpace(TokenID))
                 && !string.IsNullOrWhiteSpace(Domain) && !string.IsNullOrWhiteSpace(SubDomain);
         }
 
@@ -252,29 +214,15 @@ namespace DynamicDNS.Settings {
         /// </summary>
         private void btnSave_Click(object sender, EventArgs e) {
 
-            if (cbUseToken.Checked) {
 
-                if (string.IsNullOrWhiteSpace(tbeToken.Text)) {
-                    AppHelper.Alert("请填写您的Token！");
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(tbeTokenID.Text)) {
-                    AppHelper.Alert("请填写您的TokenID！");
-                    return;
-                }
+            if (string.IsNullOrWhiteSpace(tbeToken.Text)) {
+                AppHelper.Alert("请填写您的Token！");
+                return;
             }
-            else if (cbUseAccount.Checked) {
 
-                if (string.IsNullOrWhiteSpace(tbeAccount.Text)) {
-                    AppHelper.Alert("请填写您的邮箱！");
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(tbePwd.Text)) {
-                    AppHelper.Alert("请填写您的密码！");
-                    return;
-                }
+            if (string.IsNullOrWhiteSpace(tbeTokenID.Text)) {
+                AppHelper.Alert("请填写您的TokenID！");
+                return;
             }
 
             if (string.IsNullOrWhiteSpace(tbeDomain.Text)) {
@@ -290,19 +238,8 @@ namespace DynamicDNS.Settings {
 
             Domain = tbeDomain.Text;
             SubDomain = tbeSubDomain.Text;
-
-            if (cbUseToken.Checked) {
-                Token = tbeToken.Text;
-                TokenID = tbeTokenID.Text;
-                Email = "";
-                Password = "";
-            }
-            else {
-                Email = tbeAccount.Text;
-                Password = tbePwd.Text;
-                Token = "";
-                TokenID = "";
-            }
+            Token = tbeToken.Text;
+            TokenID = tbeTokenID.Text;
 
             if (!string.IsNullOrWhiteSpace(tbeInterval.Text)) {
                 updateInterval = int.Parse(tbeInterval.Text);
@@ -317,7 +254,7 @@ namespace DynamicDNS.Settings {
         /// 在验证方式更改后更改视图
         /// </summary>
         private void validateHandler(object sender, EventArgs e) {
-            ToggleValidateState(((CheckBox)sender).Name == cbUseToken.Name);
+            ToggleValidateState();
         }
     }
 }

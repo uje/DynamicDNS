@@ -91,6 +91,7 @@ namespace DNSPod.Api.Core {
                 }
                 
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)192 | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
                 var result = Encoding.UTF8.GetString(wc.UploadValues(Url, "POST", data));
                 var response = JsonConvert.DeserializeObject<T>(result); 
                 if (response.Status.Code != 1) throw new DNSPodException(response.Status.Code, response.Status.Message);

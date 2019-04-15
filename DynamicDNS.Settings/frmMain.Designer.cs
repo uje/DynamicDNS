@@ -28,8 +28,6 @@
             this.btnUninstall = new System.Windows.Forms.Button();
             this.btnBoot = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.cbUseToken = new System.Windows.Forms.CheckBox();
-            this.cbUseAccount = new System.Windows.Forms.CheckBox();
             this.tbeToken = new DynamicDNS.Settings.Controls.TextBoxEdit();
             this.tbeInterval = new DynamicDNS.Settings.Controls.TextBoxEdit();
             this.tbeSubDomain = new DynamicDNS.Settings.Controls.TextBoxEdit();
@@ -86,30 +84,6 @@
             this.btnSave.Text = "保存配置";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // cbUseToken
-            // 
-            this.cbUseToken.AutoSize = true;
-            this.cbUseToken.Location = new System.Drawing.Point(136, 93);
-            this.cbUseToken.Name = "cbUseToken";
-            this.cbUseToken.Size = new System.Drawing.Size(78, 16);
-            this.cbUseToken.TabIndex = 4;
-            this.cbUseToken.Text = "使用Token";
-            this.cbUseToken.UseVisualStyleBackColor = true;
-            this.cbUseToken.Click += new System.EventHandler(this.validateHandler);
-            // 
-            // cbUseAccount
-            // 
-            this.cbUseAccount.AutoSize = true;
-            this.cbUseAccount.Checked = true;
-            this.cbUseAccount.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbUseAccount.Location = new System.Drawing.Point(33, 93);
-            this.cbUseAccount.Name = "cbUseAccount";
-            this.cbUseAccount.Size = new System.Drawing.Size(96, 16);
-            this.cbUseAccount.TabIndex = 5;
-            this.cbUseAccount.Text = "使用帐号密码";
-            this.cbUseAccount.UseVisualStyleBackColor = true;
-            this.cbUseAccount.Click += new System.EventHandler(this.validateHandler);
             // 
             // tbeToken
             // 
@@ -202,8 +176,6 @@
             this.Controls.Add(this.tbeDomain);
             this.Controls.Add(this.tbePwd);
             this.Controls.Add(this.tbeAccount);
-            this.Controls.Add(this.cbUseAccount);
-            this.Controls.Add(this.cbUseToken);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnBoot);
             this.Controls.Add(this.btnUninstall);
@@ -214,7 +186,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "动态DNS配置";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -224,8 +195,6 @@
         private System.Windows.Forms.Button btnUninstall;
         private System.Windows.Forms.Button btnBoot;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.CheckBox cbUseToken;
-        private System.Windows.Forms.CheckBox cbUseAccount;
         private Controls.TextBoxEdit tbeAccount;
         private Controls.TextBoxEdit tbePwd;
         private Controls.TextBoxEdit tbeDomain;
