@@ -14,12 +14,16 @@ namespace DynamicDNS.Core {
     public class DNSHelper  {
 
         private static readonly KeyValuePair<string, string>[] urls = new KeyValuePair<string, string>[] {
-            new KeyValuePair<string, string> ("http://www.ip.cn", @"\d+\.\d+\.\d+\.\d+" ),
-            new KeyValuePair<string, string> ("http://www.wuyuanhe.com/ip", "" )
+            new KeyValuePair<string, string> ("http://myip.ipip.net/", @"\d+\.\d+\.\d+\.\d+" ),
+            new KeyValuePair<string, string> ("http://ip.sb", @"\d+\.\d+\.\d+\.\d+" ),
+            new KeyValuePair<string, string> ("https://www.myip.la/", @"\d+\.\d+\.\d+\.\d+" ),
+            new KeyValuePair<string, string> ("https://tool.lu/ip/", @"\d+\.\d+\.\d+\.\d+" ),
+            new KeyValuePair<string, string> ("http://ip.tool.chinaz.com/", @"\d+\.\d+\.\d+\.\d+" ),
+            new KeyValuePair<string, string> ("https://www.123cha.com/ip/", @"\d+\.\d+\.\d+\.\d+" )
         };
 
         /// <summary>
-        /// 获取本机外网IP，从五个源获取
+        /// 获取本机外网IP，从六个源获取
         /// </summary>
         /// <returns></returns>
         public static string GetLocalIP() {

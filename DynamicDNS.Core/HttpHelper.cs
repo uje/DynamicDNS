@@ -12,7 +12,7 @@ namespace DynamicDNS.Api.Core {
         private static HttpWebRequest CreateRequest(string url, string method = "post", string contentType = "application/json; charset=utf-8") {
             var requrest = (HttpWebRequest)WebRequest.Create(url);
             requrest.Method = method;
-            requrest.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.65 Safari/537.36";
+            requrest.UserAgent = "curl/7.55.1";
             requrest.Timeout = 60000;
             requrest.ContentType = contentType;
             requrest.ProtocolVersion = HttpVersion.Version11;
